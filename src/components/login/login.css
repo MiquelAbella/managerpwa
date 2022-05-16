@@ -1,0 +1,358 @@
+.login-screen {
+  min-height: 100vh;
+  width: 100%;
+}
+
+.login {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  background-color: white;
+}
+
+.login-icon {
+  cursor: pointer;
+  margin: 3vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 8vh;
+  z-index: 1000;
+}
+.app-name {
+  animation-duration: 2s;
+  color: rgb(73, 73, 73);
+  font-size: 10vw;
+}
+
+.app-slogan {
+  animation-duration: 2s;
+  color: rgba(68, 67, 67, 0.8);
+  font-size: 1.5vw;
+}
+
+.down-arrow {
+  cursor: pointer;
+  position: absolute;
+  bottom: 0;
+  font-size: 3vw;
+  margin-bottom: 18vh;
+  color: rgba(68, 67, 67, 0.8);
+  transition-duration: 1s;
+}
+
+.forms-container {
+  position: fixed;
+  margin-top: 5vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 70vw;
+  margin-left: 10vw;
+  bottom: 0;
+  margin-bottom: 20vh;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 10vh;
+}
+
+.close-btn {
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  top: 0;
+  color: rgb(60, 60, 60);
+  margin: 2vw;
+}
+
+.login-form,
+.register-form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 35vh;
+  width: 30vw;
+  background-color: rgba(255, 254, 254, 0.8);
+  border-radius: 10px;
+  padding: 3vh;
+  box-shadow: 0px 3px 11px 3px rgba(132, 131, 131, 0.8);
+  color: rgba(68, 67, 67, 0.8);
+}
+
+.login-form input,
+.register-form input {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  border-bottom: 1px solid grey;
+  font-size: 1.25vw;
+  margin-top: 1vw;
+  width: 70%;
+}
+
+.register-form button,
+.login-form button {
+  font-size: 1vw;
+  width: 30%;
+  padding: 1vh;
+  margin-top: 3vh;
+  cursor: pointer;
+  color: rgba(68, 67, 67, 0.8);
+}
+
+.login p {
+  cursor: pointer;
+  align-self: flex-end;
+}
+
+.tutorial {
+  height: 270vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: rgb(215, 215, 215);
+}
+
+.tutorial h3 {
+  padding: 5vh;
+  width: 60%;
+  font-size: 1.25vw;
+  text-align: justify;
+}
+
+.tutorial h4 {
+  width: 80%;
+  text-align: justify;
+  font-size: 0.8vw;
+}
+
+.tutorial-title {
+  color: rgba(68, 67, 67, 0.8);
+  margin: 0;
+  padding: 0;
+  font-size: 3vw;
+}
+
+.step-container {
+  position: relative;
+  background-color: white;
+  box-shadow: 0px 3px 11px 3px rgba(132, 131, 131, 0.8);
+  height: 50vh;
+  width: 50vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  cursor: pointer;
+}
+
+.step-container h1 {
+  font-size: 1.25vw;
+}
+
+.step-container img {
+  height: 70%;
+}
+
+.tutorial-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.custom-shape-divider-bottom-1651951222 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.custom-shape-divider-bottom-1651951222 svg {
+  position: relative;
+  display: block;
+  width: calc(106% + 1.3px);
+  height: 150px;
+}
+
+.custom-shape-divider-bottom-1651951222 .shape-fill {
+  fill: rgb(215, 215, 215);
+}
+
+.lds-roller {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-roller div {
+  animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  transform-origin: 40px 40px;
+}
+.lds-roller div:after {
+  content: " ";
+  display: block;
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgb(95, 95, 95);
+  margin: -4px 0 0 -4px;
+}
+.lds-roller div:nth-child(1) {
+  animation-delay: -0.036s;
+}
+.lds-roller div:nth-child(1):after {
+  top: 63px;
+  left: 63px;
+}
+.lds-roller div:nth-child(2) {
+  animation-delay: -0.072s;
+}
+.lds-roller div:nth-child(2):after {
+  top: 68px;
+  left: 56px;
+}
+.lds-roller div:nth-child(3) {
+  animation-delay: -0.108s;
+}
+.lds-roller div:nth-child(3):after {
+  top: 71px;
+  left: 48px;
+}
+.lds-roller div:nth-child(4) {
+  animation-delay: -0.144s;
+}
+.lds-roller div:nth-child(4):after {
+  top: 72px;
+  left: 40px;
+}
+.lds-roller div:nth-child(5) {
+  animation-delay: -0.18s;
+}
+.lds-roller div:nth-child(5):after {
+  top: 71px;
+  left: 32px;
+}
+.lds-roller div:nth-child(6) {
+  animation-delay: -0.216s;
+}
+.lds-roller div:nth-child(6):after {
+  top: 68px;
+  left: 24px;
+}
+.lds-roller div:nth-child(7) {
+  animation-delay: -0.252s;
+}
+.lds-roller div:nth-child(7):after {
+  top: 63px;
+  left: 17px;
+}
+.lds-roller div:nth-child(8) {
+  animation-delay: -0.288s;
+}
+.lds-roller div:nth-child(8):after {
+  top: 56px;
+  left: 12px;
+}
+@keyframes lds-roller {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 600px) {
+  .login-icon {
+    height: 10vh;
+  }
+  .app-name {
+    font-size: 80px;
+  }
+
+  .app-slogan {
+    font-size: 4vw;
+  }
+
+  .down-arrow {
+    transform: translateX(-5vw);
+    font-size: 15vw;
+  }
+
+  .forms-container {
+    z-index: 9999;
+    position: fixed;
+    padding: 0;
+    margin: 0;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+
+  .login-form,
+  .register-form {
+    height: 35vh;
+    width: 70%;
+  }
+
+  .login-form input,
+  .register-form input {
+    font-size: 20px;
+    width: 90%;
+  }
+
+  .register-form button,
+  .login-form button {
+    border-radius: 3px;
+    outline: none;
+    border: 1px solid grey;
+    font-size: 15px;
+    width: 50%;
+    margin-top: 1vh;
+  }
+
+  .tutorial {
+    height: 270vh;
+    width: 100%;
+  }
+
+  .tutorial h1 {
+    text-align: center;
+    width: 100%;
+    font-size: 40px;
+  }
+
+  .tutorial h4 {
+    width: 80%;
+    text-align: justify;
+    font-size: 15px;
+  }
+
+  .step-container {
+    min-height: 50vh;
+    width: 90vw;
+  }
+
+  .step-container h1 {
+    width: 90%;
+    font-size: 13px;
+  }
+
+  .step-container img {
+    height: 50%;
+  }
+
+  .tutorial-link {
+    text-decoration: none;
+    color: inherit;
+  }
+}
