@@ -19,7 +19,8 @@ export const Login = ({ setUid, setUser }) => {
     rpassword: "",
     verificationCode: "",
   });
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoginLoading, setIsLoginLoading] = useState(false);
+  const [isRegisterLoading, setIsRegisterLoading] = useState(false);
 
   const [startLogging, setStartLogging] = useState(false);
 
@@ -32,7 +33,7 @@ export const Login = ({ setUid, setUser }) => {
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
-    setIsLoading(true);
+    setIsLoginLoading(true);
     setTimeout(() => {
       axios
         .post(
@@ -45,14 +46,14 @@ export const Login = ({ setUid, setUser }) => {
             setUid(res.data.user.uid);
           } else {
             Swal.fire("error", res.data.msg, "info");
-            setIsLoading(false);
+            setIsLoginLoading(false);
           }
         });
     }, 500);
   };
   const handleRegisterSubmit = (e) => {
     e.preventDefault();
-    setIsLoading(true);
+    setIsRegisterLoading(true);
     setTimeout(() => {
       axios
         .post(
@@ -65,7 +66,7 @@ export const Login = ({ setUid, setUser }) => {
             setUid(res.data.manager.uid);
           } else {
             Swal.fire("error", res.data.msg, "info");
-            setIsLoading(false);
+            setIsRegisterLoading(false);
           }
         });
     }, 500);
@@ -201,7 +202,7 @@ export const Login = ({ setUid, setUser }) => {
               onChange={handleLoginChange}
               placeholder="Clau"
             />
-            {!isLoading ? (
+            {!isLoginLoading ? (
               <button type="submit">Entra</button>
             ) : (
               <div className="lds-roller">
@@ -240,7 +241,7 @@ export const Login = ({ setUid, setUser }) => {
               onChange={handleRegisterChange}
               placeholder="Codi de verificació"
             />
-            {!isLoading ? (
+            {!isRegisterLoading ? (
               <button type="submit">Registra't</button>
             ) : (
               <div class="lds-roller">

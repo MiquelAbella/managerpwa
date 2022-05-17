@@ -37,6 +37,9 @@ export const History = ({ user, setUid }) => {
   });
 
   let mostCommonPlace = () => {
+    if (user.history.length === 1) {
+      return user.history[0];
+    }
     let positions = [];
     for (let i = 0; i < user.history.length; i++) {
       positions.push([user.history[i][0][0], user.history[i][0][1]]);
@@ -66,8 +69,8 @@ export const History = ({ user, setUid }) => {
   };
 
   const getDistanceFromLatLonInKm = (lat1, lon1, lat2, lon2) => {
-    var R = 6371; 
-    var dLat = deg2rad(lat2 - lat1); 
+    var R = 6371;
+    var dLat = deg2rad(lat2 - lat1);
     var dLon = deg2rad(lon2 - lon1);
     var a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
@@ -76,7 +79,7 @@ export const History = ({ user, setUid }) => {
         Math.sin(dLon / 2) *
         Math.sin(dLon / 2);
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    var d = R * c; 
+    var d = R * c;
     return d.toFixed(2);
   };
 
@@ -84,6 +87,9 @@ export const History = ({ user, setUid }) => {
     return deg * (Math.PI / 180);
   }
   const [distances, setDistances] = useState(() => {
+    if (user.history.length === 1) {
+      return "0";
+    }
     let distances = [];
     let commonPlace = mostCommonPlace();
     let positions = [];
@@ -173,6 +179,19 @@ export const History = ({ user, setUid }) => {
                           </span>
                         </a>
                       )}
+                    </p>
+                  </>
+                ) : user.history.length === 1 ? (
+                  <>
+                    <p>text: {moment[1]}</p>
+                    <p>
+                      <a
+                        className="google-link"
+                        target="_blank"
+                        href={`https://www.google.com/search?q=${moment[0][0]}+%2C+${moment[0][1]}`}
+                      >
+                        Lloc habitual
+                      </a>
                     </p>
                   </>
                 ) : (
