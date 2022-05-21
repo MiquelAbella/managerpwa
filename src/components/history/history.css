@@ -4,6 +4,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  color: rgb(40, 40, 40);
 }
 
 .day-info {
@@ -64,4 +65,10 @@
 
 .hidden {
   display: none;
+}
+
+@media (max-width: 600px) {
+  .toggle-btn {
+    font-size: 7vw;
+  }
 }

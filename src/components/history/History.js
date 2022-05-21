@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import "./history.css";
 import { Link } from "react-router-dom";
 
@@ -36,62 +36,62 @@ export const History = ({ user, setUid }) => {
     }
   }, [user.history]);
 
-  let mostCommonPlace = () => {
-    if (user.history.length === 1) {
-      return user.history[0];
-    }
-    let positions = [];
-    for (let i = 0; i < user.history.length; i++) {
-      positions.push([user.history[i][0][0], user.history[i][0][1]]);
-    }
-
-    let mf = 1;
-    let m = 0;
-    let item;
-
-    for (let i = 0; i < positions.length; i++) {
-      for (let j = i; j < positions.length; j++) {
-        if (
-          positions[i][0].toFixed(4) === positions[j][0].toFixed(4) &&
-          positions[i][1].toFixed(4) === positions[j][1].toFixed(4)
-        )
-          m++;
-        if (mf < m) {
-          mf = m;
-          item = positions[i];
-        }
-      }
-
-      m = 0;
-    }
-
-    return item;
-  };
-
-  const getDistanceFromLatLonInKm = (lat1, lon1, lat2, lon2) => {
-    var R = 6371;
-    var dLat = deg2rad(lat2 - lat1);
-    var dLon = deg2rad(lon2 - lon1);
-    var a =
-      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(deg2rad(lat1)) *
-        Math.cos(deg2rad(lat2)) *
-        Math.sin(dLon / 2) *
-        Math.sin(dLon / 2);
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    var d = R * c;
-    return d.toFixed(2);
-  };
-
   function deg2rad(deg) {
     return deg * (Math.PI / 180);
   }
-  const [distances, setDistances] = useState(() => {
+
+  const distances = useMemo(() => {
     if (user.history.length === 1) {
       return "0";
     }
     let distances = [];
-    let commonPlace = mostCommonPlace();
+    let mostCommonPlace = () => {
+      if (user.history.length === 1) {
+        return user.history[0];
+      }
+      let positions = [];
+      for (let i = 0; i < user.history.length; i++) {
+        positions.push([user.history[i][0][0], user.history[i][0][1]]);
+      }
+
+      let mf = 1;
+      let m = 0;
+      let item;
+
+      for (let i = 0; i < positions.length; i++) {
+        for (let j = i; j < positions.length; j++) {
+          if (
+            positions[i][0].toFixed(4) === positions[j][0].toFixed(4) &&
+            positions[i][1].toFixed(4) === positions[j][1].toFixed(4)
+          )
+            m++;
+          if (mf < m) {
+            mf = m;
+            item = positions[i];
+          }
+        }
+
+        m = 0;
+      }
+
+      return item;
+    };
+    const getDistanceFromLatLonInKm = (lat1, lon1, lat2, lon2) => {
+      var R = 6371;
+      var dLat = deg2rad(lat2 - lat1);
+      var dLon = deg2rad(lon2 - lon1);
+      var a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(deg2rad(lat1)) *
+          Math.cos(deg2rad(lat2)) *
+          Math.sin(dLon / 2) *
+          Math.sin(dLon / 2);
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      var d = R * c;
+      return d.toFixed(2);
+    };
+    mostCommonPlace();
+    getDistanceFromLatLonInKm();
     let positions = [];
     for (let i = 0; i < user.history.length; i++) {
       positions.push([user.history[i][0][0], user.history[i][0][1]]);
@@ -108,11 +108,12 @@ export const History = ({ user, setUid }) => {
       );
     }
     return distances;
-  });
+  }, [user.history, commonPlace]);
 
   const handleToggle = (e) => {
-    const dayValue = e.target.getAttribute("dayvalue");
+    let dayValue = e.target.getAttribute("dayvalue");
     let dayContainer = document.getElementsByClassName(dayValue);
+    let toggleBtn = e.target;
 
     for (let i = 0; i < dayContainer.length; i++) {
       if (dayContainer[i].classList.contains("hidden")) {
@@ -121,6 +122,9 @@ export const History = ({ user, setUid }) => {
         document.getElementsByClassName(dayValue)[i].classList.add("hidden");
       }
     }
+    toggleBtn.innerText === "+"
+      ? (toggleBtn.innerText = "−")
+      : (toggleBtn.innerText = "+");
   };
 
   return (
@@ -160,7 +164,7 @@ export const History = ({ user, setUid }) => {
               onClick={handleToggle}
               dayvalue={user.history[0][2]}
             >
-              &#65122;
+              &#x2b;
             </button>
           </>
         ) : (
@@ -182,11 +186,11 @@ export const History = ({ user, setUid }) => {
                         onClick={handleToggle}
                         dayvalue={moment[2]}
                       >
-                        &#65122;
+                        &#x2b;
                       </button>
                     </div>
                   )}
-                <div  className={`moment ${moment[2]} hidden`}>
+                <div className={`moment ${moment[2]} hidden`}>
                   {user.history[idx - 1] &&
                   user.history[idx][2] !== user.history[idx - 1][2] ? (
                     <>
@@ -199,6 +203,7 @@ export const History = ({ user, setUid }) => {
                           <a
                             className="google-link"
                             target="_blank"
+                            rel="noreferrer"
                             href={`https://www.google.com/search?q=${moment[0][0]}+%2C+${moment[0][1]}`}
                           >
                             Lloc habitual
@@ -207,6 +212,7 @@ export const History = ({ user, setUid }) => {
                           <a
                             className="google-link"
                             target="_blank"
+                            rel="noreferrer"
                             href={`https://www.google.com/search?q=${moment[0][0]}+%2C+${moment[0][1]}`}
                           >
                             Lloc: {moment[0][0]} , {moment[0][1]} -{" "}
@@ -225,6 +231,7 @@ export const History = ({ user, setUid }) => {
                         <a
                           className="google-link"
                           target="_blank"
+                          rel="noreferrer"
                           href={`https://www.google.com/search?q=${moment[0][0]}+%2C+${moment[0][1]}`}
                         >
                           Lloc habitual
@@ -242,6 +249,7 @@ export const History = ({ user, setUid }) => {
                           <a
                             className="google-link"
                             target="_blank"
+                            rel="noreferrer"
                             href={`https://www.google.com/search?q=${moment[0][0]}+%2C+${moment[0][1]}`}
                           >
                             Lloc habitual
@@ -250,6 +258,7 @@ export const History = ({ user, setUid }) => {
                           <a
                             className="google-link"
                             target="_blank"
+                            rel="noreferrer"
                             href={`https://www.google.com/search?q=${moment[0][0]}+%2C+${moment[0][1]}`}
                           >
                             Lloc: {moment[0][0]} , {moment[0][1]} -{" "}
