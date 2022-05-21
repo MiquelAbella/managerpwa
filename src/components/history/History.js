@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import "./history.css";
 import { Link } from "react-router-dom";
 
 export const History = ({ user, setUid }) => {
-  const [commonPlace, setCommonPlace] = useState(() => {
+  const commonPlace = useMemo(() => {
     if (user.history) {
       let positions = [];
       for (let i = 0; i < user.history.length; i++) {
@@ -34,7 +34,7 @@ export const History = ({ user, setUid }) => {
     } else {
       return null;
     }
-  });
+  }, [user.history]);
 
   let mostCommonPlace = () => {
     if (user.history.length === 1) {
@@ -110,6 +110,19 @@ export const History = ({ user, setUid }) => {
     return distances;
   });
 
+  const handleToggle = (e) => {
+    const dayValue = e.target.getAttribute("dayvalue");
+    let dayContainer = document.getElementsByClassName(dayValue);
+
+    for (let i = 0; i < dayContainer.length; i++) {
+      if (dayContainer[i].classList.contains("hidden")) {
+        document.getElementsByClassName(dayValue)[i].classList.remove("hidden");
+      } else {
+        document.getElementsByClassName(dayValue)[i].classList.add("hidden");
+      }
+    }
+  };
+
   return (
     <div className="history">
       <nav className="nav">
@@ -137,9 +150,19 @@ export const History = ({ user, setUid }) => {
         *El lloc habitual és el lloc on més vegades ha fet servir l'aplicació la
         persona cuidada.
       </p>
-      <p className="date">
+      <p className="first-date">
         {user.history.length ? (
-          <strong>{user.history[0][2]}</strong>
+          <>
+            <strong>{user.history[0][2]}</strong>
+
+            <button
+              className="toggle-btn"
+              onClick={handleToggle}
+              dayvalue={user.history[0][2]}
+            >
+              &#65122;
+            </button>
+          </>
         ) : (
           <p>No hi ha res a mostrar</p>
         )}
@@ -147,60 +170,58 @@ export const History = ({ user, setUid }) => {
       {user.history
         ? user.history.map((moment, idx) => {
             return (
-              <div key={idx} className="moment">
+              <>
                 {user.history[idx - 1] &&
-                user.history[idx][2] !== user.history[idx - 1][2] ? (
-                  <>
-                    <p className="date">
-                      <strong>{moment[2]}</strong>
-                    </p>
-                    <p>text: {moment[1]}</p>
-                    <p>
-                      {commonPlace &&
-                      commonPlace[0].toFixed(3) === moment[0][0].toFixed(3) &&
-                      commonPlace[1].toFixed(3) === moment[0][1].toFixed(3) ? (
-                        <a
-                          className="google-link"
-                          target="_blank"
-                          href={`https://www.google.com/search?q=${moment[0][0]}+%2C+${moment[0][1]}`}
-                        >
-                          Lloc habitual
-                        </a>
-                      ) : (
-                        <a
-                          className="google-link"
-                          target="_blank"
-                          href={`https://www.google.com/search?q=${moment[0][0]}+%2C+${moment[0][1]}`}
-                        >
-                          Lloc: {moment[0][0]} , {moment[0][1]} -{" "}
-                          <span>
-                            &nbsp;
-                            {distances[idx]}Km del lloc habitual
-                          </span>
-                        </a>
-                      )}
-                    </p>
-                  </>
-                ) : user.history.length === 1 ? (
-                  <>
-                    <p>text: {moment[1]}</p>
-                    <p>
-                      <a
-                        className="google-link"
-                        target="_blank"
-                        href={`https://www.google.com/search?q=${moment[0][0]}+%2C+${moment[0][1]}`}
+                  user.history[idx][2] !== user.history[idx - 1][2] && (
+                    <div className="day-info" key={idx}>
+                      <p className="date">
+                        <strong>{moment[2]}</strong>
+                      </p>
+                      <button
+                        className="toggle-btn"
+                        onClick={handleToggle}
+                        dayvalue={moment[2]}
                       >
-                        Lloc habitual
-                      </a>
-                    </p>
-                  </>
-                ) : (
-                  <>
-                    <p>text: {moment[1]}</p>
-                    <p>
-                      {commonPlace &&
-                      commonPlace[0].toFixed(3) === moment[0][0].toFixed(3) &&
-                      commonPlace[1].toFixed(3) === moment[0][1].toFixed(3) ? (
+                        &#65122;
+                      </button>
+                    </div>
+                  )}
+                <div  className={`moment ${moment[2]} hidden`}>
+                  {user.history[idx - 1] &&
+                  user.history[idx][2] !== user.history[idx - 1][2] ? (
+                    <>
+                      <p>text: {moment[1]}</p>
+                      <p>
+                        {commonPlace &&
+                        commonPlace[0].toFixed(3) === moment[0][0].toFixed(3) &&
+                        commonPlace[1].toFixed(3) ===
+                          moment[0][1].toFixed(3) ? (
+                          <a
+                            className="google-link"
+                            target="_blank"
+                            href={`https://www.google.com/search?q=${moment[0][0]}+%2C+${moment[0][1]}`}
+                          >
+                            Lloc habitual
+                          </a>
+                        ) : (
+                          <a
+                            className="google-link"
+                            target="_blank"
+                            href={`https://www.google.com/search?q=${moment[0][0]}+%2C+${moment[0][1]}`}
+                          >
+                            Lloc: {moment[0][0]} , {moment[0][1]} -{" "}
+                            <span>
+                              &nbsp;
+                              {distances[idx]}Km del lloc habitual
+                            </span>
+                          </a>
+                        )}
+                      </p>
+                    </>
+                  ) : user.history.length === 1 ? (
+                    <>
+                      <p>text: {moment[1]}</p>
+                      <p>
                         <a
                           className="google-link"
                           target="_blank"
@@ -208,23 +229,41 @@ export const History = ({ user, setUid }) => {
                         >
                           Lloc habitual
                         </a>
-                      ) : (
-                        <a
-                          className="google-link"
-                          target="_blank"
-                          href={`https://www.google.com/search?q=${moment[0][0]}+%2C+${moment[0][1]}`}
-                        >
-                          Lloc: {moment[0][0]} , {moment[0][1]} -{" "}
-                          <span>
-                            &nbsp;
-                            {distances[idx]}Km del lloc habitual
-                          </span>
-                        </a>
-                      )}
-                    </p>
-                  </>
-                )}
-              </div>
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <p>text: {moment[1]}</p>
+                      <p>
+                        {commonPlace &&
+                        commonPlace[0].toFixed(3) === moment[0][0].toFixed(3) &&
+                        commonPlace[1].toFixed(3) ===
+                          moment[0][1].toFixed(3) ? (
+                          <a
+                            className="google-link"
+                            target="_blank"
+                            href={`https://www.google.com/search?q=${moment[0][0]}+%2C+${moment[0][1]}`}
+                          >
+                            Lloc habitual
+                          </a>
+                        ) : (
+                          <a
+                            className="google-link"
+                            target="_blank"
+                            href={`https://www.google.com/search?q=${moment[0][0]}+%2C+${moment[0][1]}`}
+                          >
+                            Lloc: {moment[0][0]} , {moment[0][1]} -{" "}
+                            <span>
+                              &nbsp;
+                              {distances[idx]}Km del lloc habitual
+                            </span>
+                          </a>
+                        )}
+                      </p>
+                    </>
+                  )}
+                </div>
+              </>
             );
           })
         : null}

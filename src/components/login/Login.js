@@ -34,56 +34,41 @@ export const Login = ({ setUid, setUser }) => {
   const handleLoginSubmit = (e) => {
     e.preventDefault();
     setIsLoginLoading(true);
-    setTimeout(() => {
-      axios
-        .post(
-          "https://elderpalmira.herokuapp.com/api/auth/loginManager",
-          loginValues
-        )
-        .then((res) => {
-          if (res.data.ok) {
-            setUser(res.data.user);
-            setUid(res.data.user.uid);
-          } else {
-            Swal.fire("error", res.data.msg, "info");
-            setIsLoginLoading(false);
-          }
-        });
-    }, 500);
+
+    axios
+      .post(
+        "https://elderpalmira.herokuapp.com/api/auth/loginManager",
+        loginValues
+      )
+      .then((res) => {
+        if (res.data.ok) {
+          setUser(res.data.user);
+          setUid(res.data.user.uid);
+        } else {
+          Swal.fire("error", res.data.msg, "info");
+          setIsLoginLoading(false);
+        }
+      });
   };
   const handleRegisterSubmit = (e) => {
     e.preventDefault();
     setIsRegisterLoading(true);
-    setTimeout(() => {
-      axios
-        .post(
-          "https://elderpalmira.herokuapp.com/api/auth/createManagerUser",
-          registerValues
-        )
-        .then((res) => {
-          if (res.data.ok) {
-            setUser(res.data.manager);
-            setUid(res.data.manager.uid);
-          } else {
-            Swal.fire("error", res.data.msg, "info");
-            setIsRegisterLoading(false);
-          }
-        });
-    }, 500);
+
+    axios
+      .post(
+        "https://elderpalmira.herokuapp.com/api/auth/createManagerUser",
+        registerValues
+      )
+      .then((res) => {
+        if (res.data.ok) {
+          setUser(res.data.manager);
+          setUid(res.data.manager.uid);
+        } else {
+          Swal.fire("error", res.data.msg, "info");
+          setIsRegisterLoading(false);
+        }
+      });
   };
-
-  useEffect(() => {
-    let arrow = document.getElementsByClassName("down-arrow")[0];
-
-    arrow.style.display = "none";
-    setTimeout(() => {
-      arrow.style.display = "inline";
-      arrow.style.opacity = 0;
-    }, 3000);
-    setTimeout(() => {
-      arrow.style.opacity = 1;
-    }, 3500);
-  }, []);
 
   return (
     <div className="login-screen">
@@ -130,7 +115,7 @@ export const Login = ({ setUid, setUser }) => {
         <a
           className="tutorial-link"
           target="_blank"
-          href="https://miquelabella.github.io/elder/"
+          href="https://miquelabella.github.io/elderpwa/"
         >
           <div className="step-container">
             <h1>

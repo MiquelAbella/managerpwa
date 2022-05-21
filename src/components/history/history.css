@@ -6,15 +6,49 @@
   justify-content: flex-start;
 }
 
+.day-info {
+  margin-top: 3vh;
+  width: 80%;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-bottom: 1px solid grey;
+}
+
+.toggle-btn {
+  margin-right: 15vw;
+  right: 0;
+  font-size: 2vw;
+  border: none;
+  outline: none;
+  position: absolute;
+  background: none;
+  cursor: pointer;
+}
+
 .moment {
   margin-top: 2vh;
   width: 80%;
 }
 
 .date {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
   width: 80%;
   font-size: 30px;
   text-align: left;
+}
+
+.first-date {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 80%;
+  font-size: 30px;
+  text-align: left;
+  border-bottom: 1px solid grey;
 }
 
 .moment a {
@@ -26,4 +60,8 @@
 .moment a span {
   font-weight: bold;
   color: rgb(122, 30, 0);
+}
+
+.hidden {
+  display: none;
 }
