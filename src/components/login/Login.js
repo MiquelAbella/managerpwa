@@ -41,6 +41,7 @@ export const Login = ({ setUid, setUser }) => {
         loginValues
       )
       .then((res) => {
+        console.log(res.data);
         if (res.data.ok) {
           setUser(res.data.user);
           setUid(res.data.user.uid);
@@ -84,7 +85,7 @@ export const Login = ({ setUid, setUser }) => {
           Palmira
         </h1>
         <h2 className="app-slogan animate__animated animate__fadeInDown">
-          Assistència virtual de proximitat per a qui més estimes
+          Assistencia virtual de proximidad para quien mas quieres
         </h2>
         <Link
           activeClass="active"
@@ -111,7 +112,7 @@ export const Login = ({ setUid, setUser }) => {
         </div>
       </div>
       <div className="tutorial" id="tutorial">
-        <h1 className="tutorial-title">Com funciona?</h1>
+        <h1 className="tutorial-title">Como funciona?</h1>
         <a
           className="tutorial-link"
           target="_blank"
@@ -120,8 +121,8 @@ export const Login = ({ setUid, setUser }) => {
           <div className="step-container">
             <h1>
               {" "}
-              1. Regitra't a l'aplicació que utilitzarà la persona gran i apunta
-              el codi de verificació
+              1.Registrate en la aplicación que usará la persona mayor y apunta
+              el código de verificación
             </h1>
             <img src={elder} />
           </div>
@@ -132,9 +133,7 @@ export const Login = ({ setUid, setUser }) => {
             setStartLogging(true);
           }}
         >
-          <h1>
-            2. Regitra't a l'aplicació que utilitzarà la persona cuidadora
-          </h1>
+          <h1>2. Registrate en la aplicación de la persona cuidadora</h1>
           <img src={loginImg} />
         </div>
         <a
@@ -143,20 +142,18 @@ export const Login = ({ setUid, setUser }) => {
           href="http://localhost:3001"
         >
           <div className="step-container">
-            <h1>
-              3. Escriu les rutines i recordatoris al planificador setmanal
-            </h1>
+            <h1>3. Escribe las rutinas y recordatorios semanales</h1>
             <img src={planner} />
           </div>
         </a>
         <div className="step-container" style={{ cursor: "default" }}>
           <h1>
-            4. L' aplicació ja estarà llesta! Apreta el botó d'escoltar per
-            saber què has de fer
+            4. ¡La aplicación estará lista! Aprieta el botón de recordatori i
+            escucha el mensaje
           </h1>
           <h4>
-            A l'app de la persona cuidadora es mostrarà una llista del moment i
-            lloc en que s'ha escoltat un missatge{" "}
+            En la aplicación de la persona cuidadora se mostrará un historial y
+            una gráfica de las veces que se ha escuchado el mensaje
           </h4>
           <img src={appImg} />
         </div>
@@ -178,14 +175,14 @@ export const Login = ({ setUid, setUser }) => {
               name="lemail"
               value={loginValues.lemail}
               onChange={handleLoginChange}
-              placeholder="Adreça electrònica"
+              placeholder="Email del cuidador"
             />
             <input
               type="password"
               name="lpassword"
               value={loginValues.lpassword}
               onChange={handleLoginChange}
-              placeholder="Clau"
+              placeholder="Contraseña"
             />
             {!isLoginLoading ? (
               <button type="submit">Entra</button>
@@ -204,30 +201,30 @@ export const Login = ({ setUid, setUser }) => {
           </form>
 
           <form className="register-form" onSubmit={handleRegisterSubmit}>
-            <h1>REGISTRA'T</h1>
+            <h1>REGISTRATE</h1>
             <input
               type="text"
               name="remail"
               value={registerValues.remail}
               onChange={handleRegisterChange}
-              placeholder="Adreça electrònica"
+              placeholder="Email del cuidador"
             />
             <input
               type="password"
               name="rpassword"
               value={registerValues.rpassword}
               onChange={handleRegisterChange}
-              placeholder="Clau"
+              placeholder="Contraseña"
             />
             <input
               type="text"
               name="verificationCode"
               value={registerValues.verificationCode}
               onChange={handleRegisterChange}
-              placeholder="Codi de verificació"
+              placeholder="Codigo de verificación"
             />
             {!isRegisterLoading ? (
-              <button type="submit">Registra't</button>
+              <button type="submit">Registrate</button>
             ) : (
               <div class="lds-roller">
                 <div></div>

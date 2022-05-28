@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useMemo } from "react";
 import { Link } from "react-router-dom";
 import "./chart.css";
 
@@ -13,11 +13,11 @@ import {
 } from "recharts";
 
 export const Chart = ({ setUid, user }) => {
-  const [occurrences, setOccurrences] = useState(() => {
+  const occurrences = useMemo(() => {
     if (user.history.length) {
       let data = [];
       user.history.map((occ) => {
-        data.push(occ[2]);
+        return data.push(occ[2]);
       });
 
       let count = {};
@@ -33,20 +33,7 @@ export const Chart = ({ setUid, user }) => {
     } else {
       return [];
     }
-  });
-
-    // const data = [
-    //   { name: "14-5-22", vegades: 1, amt: 0 },
-    //   { name: "15-5-22", vegades: 3, amt: 0 },
-    //   { name: "16-5-22", vegades: 5, amt: 0 },
-    //   { name: "17-5-22", vegades: 7, amt: 0 },
-    //   { name: "18-5-22", vegades: 9, amt: 0 },
-    //   { name: "19-5-22", vegades: 6, amt: 0 },
-    //   { name: "20-5-22", vegades: 10, amt: 0 },
-    //   { name: "21-5-22", vegades: 4, amt: 0 },
-    //   { name: "22-5-22", vegades: 8, amt: 0 },
-    //   { name: "23-5-22", vegades: 20, amt: 0 },
-    // ];
+  }, [user.history]);
 
   const data = occurrences.map((occ) => {
     return { name: occ[0], vegades: occ[1], amt: 0 };
@@ -60,21 +47,23 @@ export const Chart = ({ setUid, user }) => {
             <li>Planificador</li>
           </Link>
           <Link to="/history">
-            <li>Històric</li>
+            <li>Històrico</li>
           </Link>
           <Link to="/chart">
-            <li>Gràfic</li>
+            <li>Gràfica</li>
           </Link>
           <li
             onClick={() => {
               setUid("");
             }}
           >
-            Surt
+            Sal
           </li>
         </ul>
       </nav>
-      <h4 style={{ textAlign: "center", margin:'3vh'}}>GRÀFIC : VEGADES/DIA</h4>
+      <h4 style={{ textAlign: "center", margin: "3vh" }}>
+        GRÀFIC : VEGADES/DIA
+      </h4>
       <ResponsiveContainer>
         <AreaChart
           data={data}

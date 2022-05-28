@@ -135,17 +135,17 @@ export const History = ({ user, setUid }) => {
             <li>Planificador</li>
           </Link>
           <Link to="/history">
-            <li>Històric</li>
+            <li>Històrico</li>
           </Link>
           <Link to="/chart">
-            <li>Gràfic</li>
+            <li>Gràfica</li>
           </Link>
           <li
             onClick={() => {
               setUid("");
             }}
           >
-            Surt
+            Sal
           </li>
         </ul>
       </nav>

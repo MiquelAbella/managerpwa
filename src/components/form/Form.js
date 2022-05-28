@@ -9,38 +9,29 @@ export const Form = ({ user, setUid }) => {
   const handleSubmitForm = (e) => {
     e.preventDefault();
     setIsLoading(true);
-    setTimeout(() => {
-      axios
-        .post("https://elderpalmira.herokuapp.com/api/auth/setSchedule", {
-          monday,
-          tuesday,
-          wednesday,
-          thursday,
-          friday,
-          saturday,
-          sunday,
-          elderUid: user.elderUid,
-          uid: user.uid,
-        })
-        .then((res) => {
-          if (res.data.ok) {
-            Swal.fire("S'ha guardat correctament", "", "success");
-            setIsLoading(false);
-          } else {
-            Swal.fire("error", res.data.msg, "info");
-            setIsLoading(false);
-          }
-        });
-    }, 500);
-  };
 
-  const [firstDay, setFirstDay] = useState("");
-  const [secondDay, setSecondDay] = useState("");
-  const [thirdDay, setThirdDay] = useState("");
-  const [fourthDay, setFourthDay] = useState("");
-  const [fifthDay, setFifthDay] = useState("");
-  const [sixthDay, setSixthDay] = useState("");
-  const [seventhDay, setSeventhDay] = useState("");
+    axios
+      .post("https://elderpalmira.herokuapp.com/api/auth/setSchedule", {
+        monday,
+        tuesday,
+        wednesday,
+        thursday,
+        friday,
+        saturday,
+        sunday,
+        elderUid: user.elderUid,
+        uid: user.uid,
+      })
+      .then((res) => {
+        if (res.data.ok) {
+          Swal.fire("S'ha guardat correctament", "", "success");
+          setIsLoading(false);
+        } else {
+          Swal.fire("error", res.data.msg, "info");
+          setIsLoading(false);
+        }
+      });
+  };
 
   const [monday, setMonday] = useState(() =>
     user.schedule
@@ -274,36 +265,6 @@ export const Form = ({ user, setUid }) => {
   const handleSundayChange = (e) => {
     setSunday({ ...sunday, [e.target.name]: e.target.value });
   };
-
-  // set day and month for each day
-
-  useEffect(() => {
-    let oneDay = 86400000;
-
-    const timeElapsed = Date.now();
-
-    // if today is not monday we have to make sure that in the form, the written day is the correct day
-    const weekDay = new Date().getDay() - 1;
-    //
-    const first = new Date(timeElapsed - oneDay * weekDay);
-    const second = new Date(timeElapsed + oneDay - oneDay * weekDay);
-    const third = new Date(timeElapsed + oneDay * 2 - oneDay * weekDay);
-    const fourth = new Date(timeElapsed + oneDay * 3 - oneDay * weekDay);
-    const fifth = new Date(timeElapsed + oneDay * 4 - oneDay * weekDay);
-    const sixth = new Date(timeElapsed + oneDay * 5 - oneDay * weekDay);
-    const seventh = new Date(timeElapsed + oneDay * 6 - oneDay * weekDay);
-
-    setFirstDay(first.toLocaleDateString("es"));
-    setSecondDay(second.toLocaleDateString("es"));
-    setThirdDay(third.toLocaleDateString("es"));
-    setFourthDay(fourth.toLocaleDateString("es"));
-    setFifthDay(fifth.toLocaleDateString("es"));
-    setSixthDay(sixth.toLocaleDateString("es"));
-    setSeventhDay(seventh.toLocaleDateString("es"));
-  }, []);
-
-  //
-
   return (
     <div className="form">
       <form className="scheduler-form" onSubmit={handleSubmitForm}>
@@ -313,22 +274,27 @@ export const Form = ({ user, setUid }) => {
               <li>Planificador</li>
             </Link>
             <Link to="/history">
-              <li>Històric</li>
+              <li>Històrico</li>
             </Link>
             <Link to="/chart">
-              <li>Gràfic</li>
+              <li>Gràfica</li>
             </Link>
-            <li onClick={()=>{setUid('')}}>Surt</li>
+            <li
+              onClick={() => {
+                setUid("");
+              }}
+            >
+              Sal
+            </li>
           </ul>
         </nav>
         <p>
-          * Tots els espais buits s'ompliran amb "fes el que et vingui de gust"
+          * Todos los espacios vacíos se convertirán en "haz lo que te apetezca"
         </p>
         <div className="day">
-          <h1>Dilluns, {firstDay}</h1>
+          <h1>Lunes</h1>
           <p>00:00</p>
           <input
-            placeholder="00:00"
             type="text"
             name="zero"
             value={monday.zero}
@@ -336,7 +302,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>01:00</p>
           <input
-            placeholder="01:00"
             type="text"
             name="one"
             value={monday.one}
@@ -344,7 +309,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>02:00</p>
           <input
-            placeholder="02:00"
             type="text"
             name="two"
             value={monday.two}
@@ -352,7 +316,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>03:00</p>
           <input
-            placeholder="03:00"
             type="text"
             name="three"
             value={monday.three}
@@ -360,7 +323,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>04:00</p>
           <input
-            placeholder="04:00"
             type="text"
             name="four"
             value={monday.four}
@@ -368,7 +330,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>05:00</p>
           <input
-            placeholder="05:00"
             type="text"
             name="five"
             value={monday.five}
@@ -376,7 +337,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>06:00</p>
           <input
-            placeholder="06:00"
             type="text"
             name="six"
             value={monday.six}
@@ -384,7 +344,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>07:00</p>
           <input
-            placeholder="07:00"
             type="text"
             name="seven"
             value={monday.seven}
@@ -392,7 +351,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>08:00</p>
           <input
-            placeholder="08:00"
             type="text"
             name="eight"
             value={monday.eight}
@@ -400,7 +358,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>09:00</p>
           <input
-            placeholder="09:00"
             type="text"
             name="nine"
             value={monday.nine}
@@ -408,7 +365,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>10:00</p>
           <input
-            placeholder="10:00"
             type="text"
             name="ten"
             value={monday.ten}
@@ -416,7 +372,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>11:00</p>
           <input
-            placeholder="11:00"
             type="text"
             name="eleven"
             value={monday.eleven}
@@ -424,7 +379,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>12:00</p>
           <input
-            placeholder="12:00"
             type="text"
             name="twelve"
             value={monday.twelve}
@@ -432,7 +386,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>13:00</p>
           <input
-            placeholder="13:00"
             type="text"
             name="thirteen"
             value={monday.thirteen}
@@ -440,7 +393,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>14:00</p>
           <input
-            placeholder="14:00"
             type="text"
             name="fourteen"
             value={monday.fourteen}
@@ -448,7 +400,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>15:00</p>
           <input
-            placeholder="15:00"
             type="text"
             name="fifteen"
             value={monday.fifteen}
@@ -456,7 +407,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>16:00</p>
           <input
-            placeholder="16:00"
             type="text"
             name="sixteen"
             value={monday.sixteen}
@@ -464,7 +414,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>17:00</p>
           <input
-            placeholder="17:00"
             type="text"
             name="seventeen"
             value={monday.seventeen}
@@ -472,7 +421,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>18:00</p>
           <input
-            placeholder="18:00"
             type="text"
             name="eighteen"
             value={monday.eighteen}
@@ -480,7 +428,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>19:00</p>
           <input
-            placeholder="19:00"
             type="text"
             name="nineteen"
             value={monday.nineteen}
@@ -488,7 +435,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>20:00</p>
           <input
-            placeholder="20:00"
             type="text"
             name="twenty"
             value={monday.twenty}
@@ -496,7 +442,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>21:00</p>
           <input
-            placeholder="21:00"
             type="text"
             name="twentyone"
             value={monday.twentyone}
@@ -504,7 +449,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>22:00</p>
           <input
-            placeholder="22:00"
             type="text"
             name="twentytwo"
             value={monday.twentytwo}
@@ -512,7 +456,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>23:00</p>
           <input
-            placeholder="23:00"
             type="text"
             name="twentythree"
             value={monday.twentythree}
@@ -520,10 +463,9 @@ export const Form = ({ user, setUid }) => {
           />
         </div>
         <div className="day">
-          <h1>Dimarts {secondDay}</h1>
+          <h1>Martes</h1>
           <p>00:00</p>
           <input
-            placeholder="00:00"
             type="text"
             name="zero"
             value={tuesday.zero}
@@ -531,7 +473,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>01:00</p>
           <input
-            placeholder="01:00"
             type="text"
             name="one"
             value={tuesday.one}
@@ -539,7 +480,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>02:00</p>
           <input
-            placeholder="02:00"
             type="text"
             name="two"
             value={tuesday.two}
@@ -547,7 +487,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>03:00</p>
           <input
-            placeholder="03:00"
             type="text"
             name="three"
             value={tuesday.three}
@@ -555,7 +494,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>04:00</p>
           <input
-            placeholder="04:00"
             type="text"
             name="four"
             value={tuesday.four}
@@ -563,7 +501,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>05:00</p>
           <input
-            placeholder="05:00"
             type="text"
             name="five"
             value={tuesday.five}
@@ -571,7 +508,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>06:00</p>
           <input
-            placeholder="06:00"
             type="text"
             name="six"
             value={tuesday.six}
@@ -579,7 +515,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>07:00</p>
           <input
-            placeholder="07:00"
             type="text"
             name="seven"
             value={tuesday.seven}
@@ -587,7 +522,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>08:00</p>
           <input
-            placeholder="08:00"
             type="text"
             name="eight"
             value={tuesday.eight}
@@ -595,7 +529,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>09:00</p>
           <input
-            placeholder="09:00"
             type="text"
             name="nine"
             value={tuesday.nine}
@@ -603,7 +536,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>10:00</p>
           <input
-            placeholder="10:00"
             type="text"
             name="ten"
             value={tuesday.ten}
@@ -611,7 +543,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>11:00</p>
           <input
-            placeholder="11:00"
             type="text"
             name="eleven"
             value={tuesday.eleven}
@@ -619,7 +550,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>12:00</p>
           <input
-            placeholder="12:00"
             type="text"
             name="twelve"
             value={tuesday.twelve}
@@ -627,7 +557,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>13:00</p>
           <input
-            placeholder="13:00"
             type="text"
             name="thirteen"
             value={tuesday.thirteen}
@@ -635,7 +564,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>14:00</p>
           <input
-            placeholder="14:00"
             type="text"
             name="fourteen"
             value={tuesday.fourteen}
@@ -643,7 +571,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>15:00</p>
           <input
-            placeholder="15:00"
             type="text"
             name="fifteen"
             value={tuesday.fifteen}
@@ -651,7 +578,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>16:00</p>
           <input
-            placeholder="16:00"
             type="text"
             name="sixteen"
             value={tuesday.sixteen}
@@ -659,7 +585,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>17:00</p>
           <input
-            placeholder="17:00"
             type="text"
             name="seventeen"
             value={tuesday.seventeen}
@@ -667,7 +592,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>18:00</p>
           <input
-            placeholder="18:00"
             type="text"
             name="eighteen"
             value={tuesday.eighteen}
@@ -675,7 +599,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>19:00</p>
           <input
-            placeholder="19:00"
             type="text"
             name="nineteen"
             value={tuesday.nineteen}
@@ -683,7 +606,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>20:00</p>
           <input
-            placeholder="20:00"
             type="text"
             name="twenty"
             value={tuesday.twenty}
@@ -691,7 +613,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>21:00</p>
           <input
-            placeholder="21:00"
             type="text"
             name="twentyone"
             value={tuesday.twentyone}
@@ -699,7 +620,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>22:00</p>
           <input
-            placeholder="22:00"
             type="text"
             name="twentytwo"
             value={tuesday.twentytwo}
@@ -707,7 +627,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>23:00</p>
           <input
-            placeholder="23:00"
             type="text"
             name="twentythree"
             value={tuesday.twentythree}
@@ -715,10 +634,9 @@ export const Form = ({ user, setUid }) => {
           />
         </div>
         <div className="day">
-          <h1>Dimecres {thirdDay}</h1>
+          <h1>Miércoles</h1>
           <p>00:00</p>
           <input
-            placeholder="00:00"
             type="text"
             name="zero"
             value={wednesday.zero}
@@ -726,7 +644,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>01:00</p>
           <input
-            placeholder="01:00"
             type="text"
             name="one"
             value={wednesday.one}
@@ -734,7 +651,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>02:00</p>
           <input
-            placeholder="02:00"
             type="text"
             name="two"
             value={wednesday.two}
@@ -742,7 +658,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>03:00</p>
           <input
-            placeholder="03:00"
             type="text"
             name="three"
             value={wednesday.three}
@@ -750,7 +665,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>04:00</p>
           <input
-            placeholder="04:00"
             type="text"
             name="four"
             value={wednesday.four}
@@ -758,7 +672,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>05:00</p>
           <input
-            placeholder="05:00"
             type="text"
             name="five"
             value={wednesday.five}
@@ -766,7 +679,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>06:00</p>
           <input
-            placeholder="06:00"
             type="text"
             name="six"
             value={wednesday.six}
@@ -774,7 +686,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>07:00</p>
           <input
-            placeholder="07:00"
             type="text"
             name="seven"
             value={wednesday.seven}
@@ -782,7 +693,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>08:00</p>
           <input
-            placeholder="08:00"
             type="text"
             name="eight"
             value={wednesday.eight}
@@ -790,7 +700,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>09:00</p>
           <input
-            placeholder="09:00"
             type="text"
             name="nine"
             value={wednesday.nine}
@@ -798,7 +707,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>10:00</p>
           <input
-            placeholder="10:00"
             type="text"
             name="ten"
             value={wednesday.ten}
@@ -806,7 +714,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>11:00</p>
           <input
-            placeholder="11:00"
             type="text"
             name="eleven"
             value={wednesday.eleven}
@@ -814,7 +721,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>12:00</p>
           <input
-            placeholder="12:00"
             type="text"
             name="twelve"
             value={wednesday.twelve}
@@ -822,7 +728,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>13:00</p>
           <input
-            placeholder="13:00"
             type="text"
             name="thirteen"
             value={wednesday.thirteen}
@@ -830,7 +735,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>14:00</p>
           <input
-            placeholder="14:00"
             type="text"
             name="fourteen"
             value={wednesday.fourteen}
@@ -838,7 +742,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>15:00</p>
           <input
-            placeholder="15:00"
             type="text"
             name="fifteen"
             value={wednesday.fifteen}
@@ -846,7 +749,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>16:00</p>
           <input
-            placeholder="16:00"
             type="text"
             name="sixteen"
             value={wednesday.sixteen}
@@ -854,7 +756,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>17:00</p>
           <input
-            placeholder="17:00"
             type="text"
             name="seventeen"
             value={wednesday.seventeen}
@@ -862,7 +763,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>18:00</p>
           <input
-            placeholder="18:00"
             type="text"
             name="eighteen"
             value={wednesday.eighteen}
@@ -870,7 +770,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>19:00</p>
           <input
-            placeholder="19:00"
             type="text"
             name="nineteen"
             value={wednesday.nineteen}
@@ -878,7 +777,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>20:00</p>
           <input
-            placeholder="20:00"
             type="text"
             name="twenty"
             value={wednesday.twenty}
@@ -886,7 +784,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>21:00</p>
           <input
-            placeholder="21:00"
             type="text"
             name="twentyone"
             value={wednesday.twentyone}
@@ -894,7 +791,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>22:00</p>
           <input
-            placeholder="22:00"
             type="text"
             name="twentytwo"
             value={wednesday.twentytwo}
@@ -902,7 +798,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>23:00</p>
           <input
-            placeholder="23:00"
             type="text"
             name="twentythree"
             value={wednesday.twentythree}
@@ -910,10 +805,9 @@ export const Form = ({ user, setUid }) => {
           />
         </div>
         <div className="day">
-          <h1>Dijous {fourthDay}</h1>
+          <h1>Jueves</h1>
           <p>00:00</p>
           <input
-            placeholder="00:00"
             type="text"
             name="zero"
             value={thursday.zero}
@@ -921,7 +815,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>01:00</p>
           <input
-            placeholder="01:00"
             type="text"
             name="one"
             value={thursday.one}
@@ -929,7 +822,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>02:00</p>
           <input
-            placeholder="02:00"
             type="text"
             name="two"
             value={thursday.two}
@@ -937,7 +829,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>03:00</p>
           <input
-            placeholder="03:00"
             type="text"
             name="three"
             value={thursday.three}
@@ -945,7 +836,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>04:00</p>
           <input
-            placeholder="04:00"
             type="text"
             name="four"
             value={thursday.four}
@@ -953,7 +843,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>05:00</p>
           <input
-            placeholder="05:00"
             type="text"
             name="five"
             value={thursday.five}
@@ -961,7 +850,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>06:00</p>
           <input
-            placeholder="06:00"
             type="text"
             name="six"
             value={thursday.six}
@@ -969,7 +857,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>07:00</p>
           <input
-            placeholder="07:00"
             type="text"
             name="seven"
             value={thursday.seven}
@@ -977,7 +864,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>08:00</p>
           <input
-            placeholder="08:00"
             type="text"
             name="eight"
             value={thursday.eight}
@@ -985,7 +871,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>09:00</p>
           <input
-            placeholder="09:00"
             type="text"
             name="nine"
             value={thursday.nine}
@@ -993,7 +878,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>10:00</p>
           <input
-            placeholder="10:00"
             type="text"
             name="ten"
             value={thursday.ten}
@@ -1001,7 +885,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>11:00</p>
           <input
-            placeholder="11:00"
             type="text"
             name="eleven"
             value={thursday.eleven}
@@ -1009,7 +892,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>12:00</p>
           <input
-            placeholder="12:00"
             type="text"
             name="twelve"
             value={thursday.twelve}
@@ -1017,7 +899,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>13:00</p>
           <input
-            placeholder="13:00"
             type="text"
             name="thirteen"
             value={thursday.thirteen}
@@ -1025,7 +906,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>14:00</p>
           <input
-            placeholder="14:00"
             type="text"
             name="fourteen"
             value={thursday.fourteen}
@@ -1033,7 +913,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>15:00</p>
           <input
-            placeholder="15:00"
             type="text"
             name="fifteen"
             value={thursday.fifteen}
@@ -1041,7 +920,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>16:00</p>
           <input
-            placeholder="16:00"
             type="text"
             name="sixteen"
             value={thursday.sixteen}
@@ -1049,7 +927,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>17:00</p>
           <input
-            placeholder="17:00"
             type="text"
             name="seventeen"
             value={thursday.seventeen}
@@ -1057,7 +934,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>18:00</p>
           <input
-            placeholder="18:00"
             type="text"
             name="eighteen"
             value={thursday.eighteen}
@@ -1065,7 +941,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>19:00</p>
           <input
-            placeholder="19:00"
             type="text"
             name="nineteen"
             value={thursday.nineteen}
@@ -1073,7 +948,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>20:00</p>
           <input
-            placeholder="20:00"
             type="text"
             name="twenty"
             value={thursday.twenty}
@@ -1081,7 +955,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>21:00</p>
           <input
-            placeholder="21:00"
             type="text"
             name="twentyone"
             value={thursday.twentyone}
@@ -1089,7 +962,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>22:00</p>
           <input
-            placeholder="22:00"
             type="text"
             name="twentytwo"
             value={thursday.twentytwo}
@@ -1097,7 +969,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>23:00</p>
           <input
-            placeholder="23:00"
             type="text"
             name="twentythree"
             value={thursday.twentythree}
@@ -1105,10 +976,9 @@ export const Form = ({ user, setUid }) => {
           />
         </div>
         <div className="day">
-          <h1>Divendres {fifthDay}</h1>
+          <h1>Viernes</h1>
           <p>00:00</p>
           <input
-            placeholder="00:00"
             type="text"
             name="zero"
             value={friday.zero}
@@ -1116,7 +986,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>01:00</p>
           <input
-            placeholder="01:00"
             type="text"
             name="one"
             value={friday.one}
@@ -1124,7 +993,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>02:00</p>
           <input
-            placeholder="02:00"
             type="text"
             name="two"
             value={friday.two}
@@ -1132,7 +1000,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>03:00</p>
           <input
-            placeholder="03:00"
             type="text"
             name="three"
             value={friday.three}
@@ -1140,7 +1007,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>04:00</p>
           <input
-            placeholder="04:00"
             type="text"
             name="four"
             value={friday.four}
@@ -1148,7 +1014,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>05:00</p>
           <input
-            placeholder="05:00"
             type="text"
             name="five"
             value={friday.five}
@@ -1156,7 +1021,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>06:00</p>
           <input
-            placeholder="06:00"
             type="text"
             name="six"
             value={friday.six}
@@ -1164,7 +1028,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>07:00</p>
           <input
-            placeholder="07:00"
             type="text"
             name="seven"
             value={friday.seven}
@@ -1172,7 +1035,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>08:00</p>
           <input
-            placeholder="08:00"
             type="text"
             name="eight"
             value={friday.eight}
@@ -1180,7 +1042,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>09:00</p>
           <input
-            placeholder="09:00"
             type="text"
             name="nine"
             value={friday.nine}
@@ -1188,7 +1049,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>10:00</p>
           <input
-            placeholder="10:00"
             type="text"
             name="ten"
             value={friday.ten}
@@ -1196,7 +1056,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>11:00</p>
           <input
-            placeholder="11:00"
             type="text"
             name="eleven"
             value={friday.eleven}
@@ -1204,7 +1063,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>12:00</p>
           <input
-            placeholder="12:00"
             type="text"
             name="twelve"
             value={friday.twelve}
@@ -1212,7 +1070,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>13:00</p>
           <input
-            placeholder="13:00"
             type="text"
             name="thirteen"
             value={friday.thirteen}
@@ -1220,7 +1077,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>14:00</p>
           <input
-            placeholder="14:00"
             type="text"
             name="fourteen"
             value={friday.fourteen}
@@ -1228,7 +1084,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>15:00</p>
           <input
-            placeholder="15:00"
             type="text"
             name="fifteen"
             value={friday.fifteen}
@@ -1236,7 +1091,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>16:00</p>
           <input
-            placeholder="16:00"
             type="text"
             name="sixteen"
             value={friday.sixteen}
@@ -1244,7 +1098,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>17:00</p>
           <input
-            placeholder="17:00"
             type="text"
             name="seventeen"
             value={friday.seventeen}
@@ -1252,7 +1105,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>18:00</p>
           <input
-            placeholder="18:00"
             type="text"
             name="eighteen"
             value={friday.eighteen}
@@ -1260,7 +1112,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>19:00</p>
           <input
-            placeholder="19:00"
             type="text"
             name="nineteen"
             value={friday.nineteen}
@@ -1268,7 +1119,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>20:00</p>
           <input
-            placeholder="20:00"
             type="text"
             name="twenty"
             value={friday.twenty}
@@ -1276,7 +1126,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>21:00</p>
           <input
-            placeholder="21:00"
             type="text"
             name="twentyone"
             value={friday.twentyone}
@@ -1284,7 +1133,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>22:00</p>
           <input
-            placeholder="22:00"
             type="text"
             name="twentytwo"
             value={friday.twentytwo}
@@ -1292,7 +1140,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>23:00</p>
           <input
-            placeholder="23:00"
             type="text"
             name="twentythree"
             value={friday.twentythree}
@@ -1300,10 +1147,9 @@ export const Form = ({ user, setUid }) => {
           />
         </div>
         <div className="day">
-          <h1>Dissabte {sixthDay}</h1>
+          <h1>Sábado</h1>
           <p>00:00</p>
           <input
-            placeholder="00:00"
             type="text"
             name="zero"
             value={saturday.zero}
@@ -1311,7 +1157,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>01:00</p>
           <input
-            placeholder="01:00"
             type="text"
             name="one"
             value={saturday.one}
@@ -1319,7 +1164,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>02:00</p>
           <input
-            placeholder="02:00"
             type="text"
             name="two"
             value={saturday.two}
@@ -1327,7 +1171,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>03:00</p>
           <input
-            placeholder="03:00"
             type="text"
             name="three"
             value={saturday.three}
@@ -1335,7 +1178,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>04:00</p>
           <input
-            placeholder="04:00"
             type="text"
             name="four"
             value={saturday.four}
@@ -1343,7 +1185,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>05:00</p>
           <input
-            placeholder="05:00"
             type="text"
             name="five"
             value={saturday.five}
@@ -1351,7 +1192,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>06:00</p>
           <input
-            placeholder="06:00"
             type="text"
             name="six"
             value={saturday.six}
@@ -1359,7 +1199,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>07:00</p>
           <input
-            placeholder="07:00"
             type="text"
             name="seven"
             value={saturday.seven}
@@ -1367,7 +1206,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>08:00</p>
           <input
-            placeholder="08:00"
             type="text"
             name="eight"
             value={saturday.eight}
@@ -1375,7 +1213,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>09:00</p>
           <input
-            placeholder="09:00"
             type="text"
             name="nine"
             value={saturday.nine}
@@ -1383,7 +1220,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>10:00</p>
           <input
-            placeholder="10:00"
             type="text"
             name="ten"
             value={saturday.ten}
@@ -1391,7 +1227,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>11:00</p>
           <input
-            placeholder="11:00"
             type="text"
             name="eleven"
             value={saturday.eleven}
@@ -1399,7 +1234,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>12:00</p>
           <input
-            placeholder="12:00"
             type="text"
             name="twelve"
             value={saturday.twelve}
@@ -1407,7 +1241,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>13:00</p>
           <input
-            placeholder="13:00"
             type="text"
             name="thirteen"
             value={saturday.thirteen}
@@ -1415,7 +1248,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>14:00</p>
           <input
-            placeholder="14:00"
             type="text"
             name="fourteen"
             value={saturday.fourteen}
@@ -1423,7 +1255,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>15:00</p>
           <input
-            placeholder="15:00"
             type="text"
             name="fifteen"
             value={saturday.fifteen}
@@ -1431,7 +1262,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>16:00</p>
           <input
-            placeholder="16:00"
             type="text"
             name="sixteen"
             value={saturday.sixteen}
@@ -1439,7 +1269,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>17:00</p>
           <input
-            placeholder="17:00"
             type="text"
             name="seventeen"
             value={saturday.seventeen}
@@ -1447,7 +1276,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>18:00</p>
           <input
-            placeholder="18:00"
             type="text"
             name="eighteen"
             value={saturday.eighteen}
@@ -1455,7 +1283,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>19:00</p>
           <input
-            placeholder="19:00"
             type="text"
             name="nineteen"
             value={saturday.nineteen}
@@ -1463,7 +1290,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>20:00</p>
           <input
-            placeholder="20:00"
             type="text"
             name="twenty"
             value={saturday.twenty}
@@ -1471,7 +1297,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>21:00</p>
           <input
-            placeholder="21:00"
             type="text"
             name="twentyone"
             value={saturday.twentyone}
@@ -1479,7 +1304,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>22:00</p>
           <input
-            placeholder="22:00"
             type="text"
             name="twentytwo"
             value={saturday.twentytwo}
@@ -1487,7 +1311,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>23:00</p>
           <input
-            placeholder="23:00"
             type="text"
             name="twentythree"
             value={saturday.twentythree}
@@ -1495,10 +1318,9 @@ export const Form = ({ user, setUid }) => {
           />
         </div>
         <div className="day">
-          <h1>Diumenge {seventhDay}</h1>
+          <h1>Domingo</h1>
           <p>00:00</p>
           <input
-            placeholder="00:00"
             type="text"
             name="zero"
             value={sunday.zero}
@@ -1506,7 +1328,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>01:00</p>
           <input
-            placeholder="01:00"
             type="text"
             name="one"
             value={sunday.one}
@@ -1514,7 +1335,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>02:00</p>
           <input
-            placeholder="02:00"
             type="text"
             name="two"
             value={sunday.two}
@@ -1522,7 +1342,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>03:00</p>
           <input
-            placeholder="03:00"
             type="text"
             name="three"
             value={sunday.three}
@@ -1530,7 +1349,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>04:00</p>
           <input
-            placeholder="04:00"
             type="text"
             name="four"
             value={sunday.four}
@@ -1538,7 +1356,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>05:00</p>
           <input
-            placeholder="05:00"
             type="text"
             name="five"
             value={sunday.five}
@@ -1546,7 +1363,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>06:00</p>
           <input
-            placeholder="06:00"
             type="text"
             name="six"
             value={sunday.six}
@@ -1554,7 +1370,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>07:00</p>
           <input
-            placeholder="07:00"
             type="text"
             name="seven"
             value={sunday.seven}
@@ -1562,7 +1377,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>08:00</p>
           <input
-            placeholder="08:00"
             type="text"
             name="eight"
             value={sunday.eight}
@@ -1570,7 +1384,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>09:00</p>
           <input
-            placeholder="09:00"
             type="text"
             name="nine"
             value={sunday.nine}
@@ -1578,7 +1391,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>10:00</p>
           <input
-            placeholder="10:00"
             type="text"
             name="ten"
             value={sunday.ten}
@@ -1586,7 +1398,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>11:00</p>
           <input
-            placeholder="11:00"
             type="text"
             name="eleven"
             value={sunday.eleven}
@@ -1594,7 +1405,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>12:00</p>
           <input
-            placeholder="12:00"
             type="text"
             name="twelve"
             value={sunday.twelve}
@@ -1602,7 +1412,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>13:00</p>
           <input
-            placeholder="13:00"
             type="text"
             name="thirteen"
             value={sunday.thirteen}
@@ -1610,7 +1419,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>14:00</p>
           <input
-            placeholder="14:00"
             type="text"
             name="fourteen"
             value={sunday.fourteen}
@@ -1618,7 +1426,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>15:00</p>
           <input
-            placeholder="15:00"
             type="text"
             name="fifteen"
             value={sunday.fifteen}
@@ -1626,7 +1433,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>16:00</p>
           <input
-            placeholder="16:00"
             type="text"
             name="sixteen"
             value={sunday.sixteen}
@@ -1634,7 +1440,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>17:00</p>
           <input
-            placeholder="17:00"
             type="text"
             name="seventeen"
             value={sunday.seventeen}
@@ -1642,7 +1447,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>18:00</p>
           <input
-            placeholder="18:00"
             type="text"
             name="eighteen"
             value={sunday.eighteen}
@@ -1650,7 +1454,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>19:00</p>
           <input
-            placeholder="19:00"
             type="text"
             name="nineteen"
             value={sunday.nineteen}
@@ -1658,7 +1461,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>20:00</p>
           <input
-            placeholder="20:00"
             type="text"
             name="twenty"
             value={sunday.twenty}
@@ -1666,7 +1468,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>21:00</p>
           <input
-            placeholder="21:00"
             type="text"
             name="twentyone"
             value={sunday.twentyone}
@@ -1674,7 +1475,6 @@ export const Form = ({ user, setUid }) => {
           />
           <p>22:00</p>
           <input
-            placeholder="22:00"
             type="text"
             name="twentytwo"
             value={sunday.twentytwo}
@@ -1682,27 +1482,16 @@ export const Form = ({ user, setUid }) => {
           />
           <p>23:00</p>
           <input
-            placeholder="23:00"
             type="text"
             name="twentythree"
             value={sunday.twentythree}
             onChange={handleSundayChange}
           />
         </div>
-        {!isLoading ? (
-          <button type="submit">Desa</button>
-        ) : (
-          <div class="lds-roller">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-        )}
+
+        <button className="form-submit-btn" disabled={isLoading} type="submit">
+          {isLoading ? ". . ." : "Guarda"}
+        </button>
       </form>
     </div>
   );

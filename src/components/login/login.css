@@ -35,6 +35,7 @@
 }
 
 .down-arrow {
+  z-index: 3;
   cursor: pointer;
   position: absolute;
   bottom: 0;
@@ -153,7 +154,7 @@
 }
 
 .step-container h1 {
-  font-size: 1.25vw;
+  font-size: 1vw;
 }
 
 .step-container img {
@@ -260,6 +261,10 @@
 .lds-roller div:nth-child(8):after {
   top: 56px;
   left: 12px;
+}
+
+.swal2-container {
+  z-index: 9999 !important;
 }
 @keyframes lds-roller {
   0% {
