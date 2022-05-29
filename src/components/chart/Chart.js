@@ -36,7 +36,7 @@ export const Chart = ({ setUid, user }) => {
   }, [user.history]);
 
   const data = occurrences.map((occ) => {
-    return { name: occ[0], vegades: occ[1], amt: 0 };
+    return { name: occ[0], veces: occ[1], amt: 0 };
   });
 
   return (
@@ -62,7 +62,7 @@ export const Chart = ({ setUid, user }) => {
         </ul>
       </nav>
       <h4 style={{ textAlign: "center", margin: "3vh" }}>
-        GRÀFIC : VEGADES/DIA
+        VECES / DIA
       </h4>
       <ResponsiveContainer>
         <AreaChart
@@ -85,7 +85,7 @@ export const Chart = ({ setUid, user }) => {
           <Tooltip />
           <Area
             type="monotone"
-            dataKey="vegades"
+            dataKey="veces"
             stroke="#82ca9d"
             fillOpacity={1}
             fill="url(#colorPv)"

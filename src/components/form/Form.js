@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "./form.css";
@@ -24,7 +24,7 @@ export const Form = ({ user, setUid }) => {
       })
       .then((res) => {
         if (res.data.ok) {
-          Swal.fire("S'ha guardat correctament", "", "success");
+          Swal.fire("Se guardo correctamente", "", "success");
           setIsLoading(false);
         } else {
           Swal.fire("error", res.data.msg, "info");
@@ -289,7 +289,10 @@ export const Form = ({ user, setUid }) => {
           </ul>
         </nav>
         <p>
-          * Todos los espacios vacíos se convertirán en "haz lo que te apetezca"
+          * Todos los espacios vacíos se convertirán en "haz lo que te apetezca."
+        </p>
+        <p>
+          * Recuerda escribir bien, con acentos y signos de puntuación. Palmira los respetará."
         </p>
         <div className="day">
           <h1>Lunes</h1>

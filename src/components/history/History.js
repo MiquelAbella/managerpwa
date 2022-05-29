@@ -151,8 +151,7 @@ export const History = ({ user, setUid }) => {
       </nav>
       <p style={{ width: "80%", textAlign: "left", margin: "2vh" }}>
         {" "}
-        *El lloc habitual és el lloc on més vegades ha fet servir l'aplicació la
-        persona cuidada.
+        *El sitio habitual es el sitio desde donde mas veces se ha escuchado un mensaje.
       </p>
       <p className="first-date">
         {user.history.length ? (
@@ -168,7 +167,7 @@ export const History = ({ user, setUid }) => {
             </button>
           </>
         ) : (
-          <p>No hi ha res a mostrar</p>
+          <p>Nada que mostrar</p>
         )}
       </p>
       {user.history
@@ -218,7 +217,7 @@ export const History = ({ user, setUid }) => {
                             Lloc: {moment[0][0]} , {moment[0][1]} -{" "}
                             <span>
                               &nbsp;
-                              {distances[idx]}Km del lloc habitual
+                              {distances[idx]}Km del sitio habitual
                             </span>
                           </a>
                         )}
@@ -226,7 +225,7 @@ export const History = ({ user, setUid }) => {
                     </>
                   ) : user.history.length === 1 ? (
                     <>
-                      <p>text: {moment[1]}</p>
+                      <p>Mensaje: {moment[1]}</p>
                       <p>
                         <a
                           className="google-link"
@@ -234,13 +233,13 @@ export const History = ({ user, setUid }) => {
                           rel="noreferrer"
                           href={`https://www.google.com/search?q=${moment[0][0]}+%2C+${moment[0][1]}`}
                         >
-                          Lloc habitual
+                          Sitio habitual
                         </a>
                       </p>
                     </>
                   ) : (
                     <>
-                      <p>text: {moment[1]}</p>
+                      <p>Mensaje: {moment[1]}</p>
                       <p>
                         {commonPlace &&
                         commonPlace[0].toFixed(3) === moment[0][0].toFixed(3) &&
@@ -252,7 +251,7 @@ export const History = ({ user, setUid }) => {
                             rel="noreferrer"
                             href={`https://www.google.com/search?q=${moment[0][0]}+%2C+${moment[0][1]}`}
                           >
-                            Lloc habitual
+                            Sitio habitual
                           </a>
                         ) : (
                           <a
@@ -264,7 +263,7 @@ export const History = ({ user, setUid }) => {
                             Lloc: {moment[0][0]} , {moment[0][1]} -{" "}
                             <span>
                               &nbsp;
-                              {distances[idx]}Km del lloc habitual
+                              {distances[idx]}Km del sitio habitual
                             </span>
                           </a>
                         )}
