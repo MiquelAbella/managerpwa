@@ -19,7 +19,9 @@ function App() {
         <Route path="/" element={<PublicRoutes uid={uid} />}>
           <Route
             path="/"
-            element={<Login setUid={setUid} setUser={setUser} />}
+            element={
+              <Login setUid={setUid} setUser={setUser} />
+            }
           />
         </Route>
         <Route path="/form" element={<ProtectedRoutes uid={uid} />}>

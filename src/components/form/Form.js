@@ -9,7 +9,6 @@ export const Form = ({ user, setUid }) => {
   const handleSubmitForm = (e) => {
     e.preventDefault();
     setIsLoading(true);
-
     axios
       .post("https://elderpalmira.herokuapp.com/api/auth/setSchedule", {
         monday,
@@ -24,7 +23,7 @@ export const Form = ({ user, setUid }) => {
       })
       .then((res) => {
         if (res.data.ok) {
-          Swal.fire("Se guardo correctamente", "", "success");
+          Swal.fire("Se guardo correctamente2", "", "success");
           setIsLoading(false);
         } else {
           Swal.fire("error", res.data.msg, "info");
@@ -289,10 +288,12 @@ export const Form = ({ user, setUid }) => {
           </ul>
         </nav>
         <p>
-          * Todos los espacios vacíos se convertirán en "haz lo que te apetezca."
+          * Todos los espacios vacíos se convertirán en "haz lo que te
+          apetezca."
         </p>
         <p>
-          * Recuerda escribir bien, con acentos y signos de puntuación. Palmira los respetará."
+          * Recuerda escribir bien, con acentos y signos de puntuación. Palmira
+          los respetará."
         </p>
         <div className="day">
           <h1>Lunes</h1>
