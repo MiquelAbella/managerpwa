@@ -23,7 +23,7 @@ export const Form = ({ user, setUid }) => {
       })
       .then((res) => {
         if (res.data.ok) {
-          Swal.fire("Se guardo correctamente2", "", "success");
+          Swal.fire("Se guardo correctamente", "", "success");
           setIsLoading(false);
         } else {
           Swal.fire("error", res.data.msg, "info");
